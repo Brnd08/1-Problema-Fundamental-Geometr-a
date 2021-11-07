@@ -1,7 +1,7 @@
 // Made by Velazquez Tellez Brandon
 package problema_fundamental;
 
-public class Paso_1 extends EntradaEcuacion{
+public class Paso_1 {
     
     private int ecuacion []= new int [3];
     private String variable [] = new String [3];
@@ -26,13 +26,13 @@ public class Paso_1 extends EntradaEcuacion{
             }
             else 
                 if(ecuacion[1]==0){
-                    System.out.print	(variable[0] + " = " + -ecuacion[2] + "\n");
-                    definicionX ="fijo";
+                    System.out.print	(variable[0] + " = " + -ecuacion[2] + ( ecuacion[0] == 1?  "\n" :  "/" + ecuacion[0])  );
+                    definicionX ="pFijo";
                 }
             else {        
                 System.out.print(   variable[0] + " = " + ((ecuacion[0] != 0 && ecuacion[0] != 1)?"(":""));//var 
                 System.out.print(   (-ecuacion[1] != 0)?((-ecuacion[1] > 0)?"" + -ecuacion[1] + variable[1]: (-ecuacion[1] <0)? -ecuacion[1] + variable[1] : ""): "" );
-                System.out.print(  ((-ecuacion[2] != 0)?((-ecuacion[2] > 0)?"+" + -ecuacion[2] +  ""  : (-ecuacion[2] <0)? -ecuacion[2] +  ""    : ""): ""  ) ); //queda intacto
+                System.out.print(  ((-ecuacion[2] != 0)?((-ecuacion[2] > 0)?"+" + (-ecuacion[2]) +  ""  : (-ecuacion[2] <0)? -ecuacion[2] +  ""    : ""): ""  ) ); //queda intacto
                 System.out.print(  ((ecuacion[0] != 0 && ecuacion[0] != 1)?((ecuacion[0] > 0)? ")/" + ecuacion[0]: ")/" + ecuacion[0]): "" ) + "\n");
                 definicionX ="normal";
            }
@@ -46,13 +46,13 @@ public class Paso_1 extends EntradaEcuacion{
             }
             else 
                 if(ecuacion[0]==0){
-                    System.out.print	(variable[1] + " = " + ecuacion[2] + "\n");
-                    definicionY = "fijo";
+                    System.out.print	(variable[1] + " = " + -ecuacion[2]  + ( ecuacion[1] == 1?  "\n" :  "/" + ecuacion[1] ) );
+                    definicionY = "pFijo";
                 }
             else {
                 System.out.print(   variable[1] + " = " + ((ecuacion[1] != 0&& ecuacion[1] != 1)?"(":""));
                 System.out.print(   (-ecuacion[0] != 0)?((-ecuacion[0] > 0)?"" + -ecuacion[0] + variable[0]: (-ecuacion[0] <0)? -ecuacion[0] + variable[0] : ""): "" );
-                System.out.print(  ((-ecuacion[2] != 0 )?((-ecuacion[2] > 0)?"+" + -ecuacion[2] +  ""  : (-ecuacion[2] <0)? -ecuacion[2] +  ""    : ""): ""  ) );  // queda intacta
+                System.out.print(  ((-ecuacion[2] != 0 )?((-ecuacion[2] > 0)?"+" + (-ecuacion[2]) +  ""  : (-ecuacion[2] <0)? -ecuacion[2] +  ""    : ""): ""  ) );  // queda intacta
                 System.out.print(   ((ecuacion[1] != 0&& ecuacion[1] != 1)?((ecuacion[1] > 0)? ")/" + ecuacion[1]: ")/" + ecuacion[1]): "" ) + "\n");
                 definicionY = "normal";
             }
