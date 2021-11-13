@@ -12,6 +12,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -271,7 +273,7 @@ class GUI extends JFrame {
                         graphPanel.setDarkMode(false);
                     }
                 } catch (IOException e) {
-                    System.out.println(e);
+
                 }
             }
         });
@@ -328,6 +330,20 @@ class GUI extends JFrame {
         //establecemos placeholder
         placeholder = new TextPrompt("ax + by + c = 0", equationTextField);
         placeholder.setForeground(secondLetter);
+
+        equationTextField.setTransferHandler(null);
+        //validacion de datos del input
+        equationTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                String caracteres = "1234567890+-=xy";
+                char c = e.getKeyChar();
+
+                if (caracteres.indexOf(c) == -1) {
+                    e.consume();
+                }
+            }
+        });
 
         equationTextField.setBorder(null);
 
@@ -1276,7 +1292,7 @@ class Grafica extends JPanel implements MouseListener, MouseMotionListener, Mous
         if (dragging == false) {
             return;
         }
-        int x = evt.getX();   // posici�n del mouse
+        int x = evt.getX();   // posicion del mouse
         int y = evt.getY();
         x0 = x - offsetX;     // mover origen
         y0 = y - offsetY;
@@ -1286,9 +1302,12 @@ class Grafica extends JPanel implements MouseListener, MouseMotionListener, Mous
     @Override
     public void mouseWheelMoved(MouseWheelEvent evt) {
         int zoom = evt.getWheelRotation() * 2;
-        escalaY += -zoom;
-        escalaX += -zoom;
-        repaint();
+
+        if ((escalaY - zoom) > 10) {
+            escalaY += -zoom;
+            escalaX += -zoom;
+            repaint();
+        }
     }
 
     //el resto hace nada 
@@ -1314,10 +1333,8 @@ class Grafica extends JPanel implements MouseListener, MouseMotionListener, Mous
 
         if (!darkMode) {
             Graficar(g, x0, y0, letter, secondLetter, purple, background);
-            System.out.println("LIGHT MODE");
         } else {
             Graficar(g, x0, y0, darkLetter, darkSecondLetter, darkPurple, darkBackground);
-            System.out.println("DARK MODE");
         }
     }
 
@@ -1417,7 +1434,6 @@ class Grafica extends JPanel implements MouseListener, MouseMotionListener, Mous
                 xi1 = (int) Math.round(escalaX * (valxi1));
                 yi1 = (int) Math.round(escalaY * valyi1);
 
-                System.out.println("x: " + xi + ", y: " + yi + ", x1: " + xi1 + ", yi: " + yi);
                 g.draw(new Line2D.Double(xg + xi, yg - yi, xg + xi1, yg - yi1));
             }
             //checha si a o sea x = 0
@@ -1434,7 +1450,6 @@ class Grafica extends JPanel implements MouseListener, MouseMotionListener, Mous
                 xi1 = (int) Math.round(escalaX * (valxi1));
                 yi1 = (int) Math.round(escalaY * valyi1);
 
-                System.out.println("x: " + xi + ", y: " + yi + ", x1: " + xi1 + ", yi: " + yi);
                 g.draw(new Line2D.Double(xg + xi, yg - yi, xg + xi1, yg - yi1));
             }
             //checa si b o sea y = 0
@@ -1451,7 +1466,6 @@ class Grafica extends JPanel implements MouseListener, MouseMotionListener, Mous
                 xi1 = (int) Math.round(escalaX * (valxi1));
                 yi1 = (int) Math.round(escalaY * valyi1);
 
-                System.out.println("x: " + xi + ", y: " + yi + ", x1: " + xi1 + ", yi: " + yi);
                 g.draw(new Line2D.Double(xg + xi, yg - yi, xg + xi1, yg - yi1));
             }
         }
