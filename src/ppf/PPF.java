@@ -338,8 +338,19 @@ class GUI extends JFrame {
             public void keyTyped(KeyEvent e) {
                 String caracteres = "1234567890+-=xy";
                 char c = e.getKeyChar();
+                String text = equationTextField.getText();
 
+                //no poner caracteres no permitidos
                 if (caracteres.indexOf(c) == -1) {
+                    e.consume();
+                    //no repetir 'x', 'y' ni '='
+                } else if ((text.indexOf(c) != -1) && (c == 'x' || c == 'y' || c == '=')) {
+                    e.consume();
+                    //no repetir '+' seguido
+                } else if ((text.indexOf('+') != -1) && (c == '+') && ((text.length() - 1) == text.lastIndexOf('+'))) {
+                    e.consume();
+                    //no repetir '-' seguido
+                } else if ((text.indexOf('-') != -1) && (c == '-') && ((text.length() - 1) == text.lastIndexOf('-'))) {
                     e.consume();
                 }
             }
