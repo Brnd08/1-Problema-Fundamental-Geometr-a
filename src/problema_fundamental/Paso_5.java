@@ -15,14 +15,16 @@ public class Paso_5 {
         System.out.println("\n 5)  ASINTOTAS:");
     }
     
-    public void asintotas(){
-        System.out.printf("\n %s \n %s\n",this.asintotaH(), this.asintotaV() );
+    public void  asintotas(){
+        
+        System.out.printf("\n Asintotas Horizontales\t %s \n Asintotas Verticales\t %s\n",this.asintotaH(), this.asintotaV() );
+        
     }
-    private String asintotaH(){
-        return String.format("%-22s \t %s", "Asintotas Horizontales", "No tiene asintotas Horizontales");
+    public  String asintotaH(){
+        return String.format(" %s", "No tiene asintotas Horizontales");
     }
     
-    private String asintotaV(){
-        return String.format("%-22s \t %s", "Asintotas Verticales", "No tiene asintotas Verticales");
+    public  String asintotaV(){
+        return String.format(" %s", "No tiene asintotas Verticales");
     }
 }

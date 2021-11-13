@@ -11,8 +11,10 @@ public class EntradaEcuacion {
     
     private boolean esEcuacion = true;
     
+    public EntradaEcuacion(){
+    }
     // Metodos 
-    
+
     public void pedirEcuacion (){        
         
         Scanner entrada = new Scanner (System.in); //objeto tipo Scanner
@@ -33,28 +35,42 @@ public class EntradaEcuacion {
     }
     
     public void simplificarEcuacion(){
-        int a = ecuacion [0];
-        int b = ecuacion [1];
-        int c = ecuacion [2];
-        int mcd =Mcd_Recursivo.mcd(a, b, c);
-        for (int k = 0; k < 3; k++) // AQUI SE DIVIDE ENTRE EL MCD DE LA ECUACION
-            ecuacion[k] = ecuacion[k]/mcd; 
+        String outF = "%36s\u2193\u2193\u2193\n";
+        String simplificarS = String.format(outF, "Ecuacion Resultante ");
         
-        System.out.printf("%36s\u2193\u2193\u2193\n", "Simplificando al dividir entre " + mcd +  " tenemos  ");
-      
+        if (esEcuacion){
+            
+            int mcd =Mcd_Recursivo.mcd(ecuacion [0], ecuacion [1], ecuacion [2]);
+            
+            if (mcd != 1 ) 
+                simplificarS = String.format(outF, "Al dividir entre " + mcd +  " tenemos  " );
+            
+            if(mcd != 1)
+                for (int i = 0; i < 3; i++) // AQUI SE DIVIDE LA ECUACION ENTRE EL MCD 
+                    ecuacion[i] = ecuacion[i]/mcd; 
+        }
+        
+        System.out.print("\n" + simplificarS);
     }
                                                         //    vX                "x"           vY                   "y"       vI                   
-    public void imprimirEcuacion (){
-         
-             System.out.print("\n ECUACION RESULTANTE -->\t" );
-             System.out.print  	(	(ecuacion[0] != 0)?((ecuacion[0] > 0)? " " + ecuacion[0] + literal[0]: (ecuacion[0] <0)? ecuacion[0] + literal[0] : ""): "" );		
-             System.out.print	(	(ecuacion[1] != 0)?((ecuacion[1] > 0)?" + " + ecuacion[1] + literal[1]: (ecuacion[1] <0)? ecuacion[1] + literal[1] : ""): "" );
-             System.out.print	(                  ((ecuacion[2] != 0)?((ecuacion[2] > 0)?" + " + ecuacion[2] +  ""  : (ecuacion[2] <0)?  " " + ecuacion[2]    : ""): ""  ) + 
-                                                         (    (ecuacion[0]==0 & ecuacion[1]==0 & ecuacion[2]==0)? "0 = 0" : " = 0") + "\n");
-       if(!esEcuacion)
-            System.out.println("\nEsta expresion no es una ecuacion valida :(");
-           
-        
+    public String imprimirEcuacion (){
+
+        String ecuacionS = "0 = 0";
+        if (ecuacion[0]!=0 || ecuacion[1]!=0 || ecuacion[2] !=0 ) 
+           ecuacionS =                         
+           (	(ecuacion[0] > 0)? " " + ecuacion[0] + literal[0] : (ecuacion[0] <0)? ecuacion[0] + literal[0] : "" ) +	
+           (	(ecuacion[1] > 0)? (ecuacion[0] ==0 ? ecuacion[1] + literal[1] : " + " + ecuacion[1] + literal[1]): (ecuacion[1] <0)? " " + ecuacion[1] + literal[1] : "" ) +
+           (      (ecuacion[2] > 0)? ( ecuacion[0] ==0 && ecuacion[1] == 0 ?  ecuacion[2] : " + " + ecuacion[2] )   : (ecuacion[2] <0)?  " " + ecuacion[2] : "")  + 
+           (      ((ecuacion[0]==0 & ecuacion[1]==0 & ecuacion[2]==0)? "0 = 0" : " = 0") + "\n");
+
+        System.out.printf( "%39s",ecuacionS);
+
+        String noValidoS ="";
+        if(!esEcuacion){
+            noValidoS ="Esta expresion no es una ecuacion valida :( ";
+            System.out.println("\n" + noValidoS);
+        }
+        return ecuacionS;
     }//quite el signo mas en la primera varible y ademas en todas puse >= 0   
 
     public int[] getEcuacion() {

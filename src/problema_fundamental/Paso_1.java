@@ -9,53 +9,69 @@ public class Paso_1 {
     private String definicionX=null;
     private String definicionY=null;
         
-    Paso_1 (int [] ecuacion, String [] variable){
+    public Paso_1 (int [] ecuacion, String [] variable){
             this.ecuacion = ecuacion;
             this.variable = variable;
+            
             System.out.println();
             System.out.println("\n 1)  DESPEJES:");
-            //+ Arrays.toString(ecuacion) + Arrays.toString(variable)   //por si se ofrece
-    } //constructor
+    } 
     
-    public void despejeX (){
+    public String despejeX (){
         
         System.out.print( "\n " +"Despeje de X       ---->" + "\t " );
+        String despejeXS;
+        
             if (ecuacion[0]==0 ){
-                System.out.print	(variable[0] + " = " +  " indefinido" + "\n");       
+                despejeXS = variable[0] + " =  indefinido";
+                System.out.print	(despejeXS + "\n");
                 definicionX = "indefinido";
             }
             else 
                 if(ecuacion[1]==0){
-                    System.out.print	(variable[0] + " = " + -ecuacion[2] + ( ecuacion[0] == 1?  "\n" :  "/" + ecuacion[0])  );
+                    despejeXS =(variable[0] + " = " + -ecuacion[2] + ( ecuacion[0] == 1?  "" :  "/" + ecuacion[0]) );
+                    System.out.print (despejeXS + "\n");
                     definicionX ="pFijo";
                 }
-            else {        
-                System.out.print(   variable[0] + " = " + ((ecuacion[0] != 0 && ecuacion[0] != 1)?"(":""));//var 
-                System.out.print(   (-ecuacion[1] != 0)?((-ecuacion[1] > 0)?"" + -ecuacion[1] + variable[1]: (-ecuacion[1] <0)? -ecuacion[1] + variable[1] : ""): "" );
-                System.out.print(  ((-ecuacion[2] != 0)?((-ecuacion[2] > 0)?"+" + (-ecuacion[2]) +  ""  : (-ecuacion[2] <0)? -ecuacion[2] +  ""    : ""): ""  ) ); //queda intacto
-                System.out.print(  ((ecuacion[0] != 0 && ecuacion[0] != 1)?((ecuacion[0] > 0)? ")/" + ecuacion[0]: ")/" + ecuacion[0]): "" ) + "\n");
+            else {
+                despejeXS = 
+                (   variable[0] + " = " + ( (ecuacion[0] != 0 && ecuacion[0] != 1) ? "(" : "") ) +
+                (    (-ecuacion[1] > 0)?"" + -ecuacion[1] + variable[1] : (-ecuacion[1] <0)? -ecuacion[1] + variable[1] : "" ) +
+                (    (-ecuacion[2] > 0)?"+" + (-ecuacion[2]) +  ""  : (-ecuacion[2] <0)? -ecuacion[2] +  ""    : ""  ) + //queda intacto
+                (    ((ecuacion[0] != 0 && ecuacion[0] != 1)?((ecuacion[0] > 0)? ")/" + ecuacion[0]: ")/" + ecuacion[0]): "" ) + "\n");
+                    System.out.print(despejeXS);
                 definicionX ="normal";
            }
+            
+            return despejeXS;
     }
     
-    public void despejeY (){
+    public String despejeY (){
         System.out.print( "\n " +"Despeje de Y       ---->" + "\t");
+        String despejeYS;
+        
             if (ecuacion[1]==0 ) {// x=0 y c=0
-                System.out.print	(variable[1] + " = " +  " indefinido" + "\n");            
+                despejeYS =variable[1] + " = " +  " indefinido" ;
+                System.out.print( despejeYS + "\n" );            
                 definicionY = "indefinido";
             }
             else 
                 if(ecuacion[0]==0){
-                    System.out.print	(variable[1] + " = " + -ecuacion[2]  + ( ecuacion[1] == 1?  "\n" :  "/" + ecuacion[1] ) );
+                    despejeYS = ( variable[1] + " = " + -ecuacion[2]  + ( ecuacion[1] == 1?  "" :  "/" + ecuacion[1] ) );
+                    System.out.print (despejeYS + "\n");
                     definicionY = "pFijo";
                 }
             else {
-                System.out.print(   variable[1] + " = " + ((ecuacion[1] != 0&& ecuacion[1] != 1)?"(":""));
-                System.out.print(   (-ecuacion[0] != 0)?((-ecuacion[0] > 0)?"" + -ecuacion[0] + variable[0]: (-ecuacion[0] <0)? -ecuacion[0] + variable[0] : ""): "" );
-                System.out.print(  ((-ecuacion[2] != 0 )?((-ecuacion[2] > 0)?"+" + (-ecuacion[2]) +  ""  : (-ecuacion[2] <0)? -ecuacion[2] +  ""    : ""): ""  ) );  // queda intacta
-                System.out.print(   ((ecuacion[1] != 0&& ecuacion[1] != 1)?((ecuacion[1] > 0)? ")/" + ecuacion[1]: ")/" + ecuacion[1]): "" ) + "\n");
+                despejeYS =
+                (   variable[1] + " = " + ((ecuacion[1] != 0&& ecuacion[1] != 1)?"(":"")) +
+                (   (-ecuacion[0] > 0)?"" + -ecuacion[0] + variable[0]: (-ecuacion[0] <0)? -ecuacion[0] + variable[0] : "") +
+                (   (-ecuacion[2] > 0)?"+" + (-ecuacion[2]) +  ""  : (-ecuacion[2] <0)? -ecuacion[2] +  ""    : "" ) +  // queda intacta
+                (   ((ecuacion[1] != 0&& ecuacion[1] != 1)?((ecuacion[1] > 0)? ")/" + ecuacion[1]: ")/" + ecuacion[1]): "" ) + "\n");
+                System.out.print(despejeYS);
                 definicionY = "normal";
             }
+            
+            return despejeYS;
         }
     
     public String getDefinicionX() {

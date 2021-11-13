@@ -12,38 +12,64 @@ public class Problema_Fundamental_Main {
         EntradaEcuacion ec = new EntradaEcuacion();        
         ec.pedirEcuacion();
         ec.simplificarEcuacion();
-        ec.imprimirEcuacion();
         
+        String ecuacionS =ec.imprimirEcuacion();
         int [] ecuacion = ec.getEcuacion();
-        float pendiente= 0;
         String [] literal = ec.getLiteral();
         boolean esEcuacion = ec.isEsEcuacion();
+        
+        float pendiente;
+        
+        //strings Paso1
+        String despejeX = "no se ejecuto el if";
+        String despejeY = "no se ejecuto el if";
+        
+        
+        //strings Paso2
+        String extencionX = "no se ejecuto el if";
+        String extencionY = "no se ejecuto el if";
+        
+        
+        //strings Paso3
+        String simetrias [];
+        
+        //strings Paso4
+        String interseccionX = "no se ejecuto el if";
+        String interseccionY = "no se ejecuto el if";
+        
+        //String paso5
+        String asintotaV = "no se ejecut el if";
+        String asintotaH = "no se ejecut el if";
+        
         
                 
         if(esEcuacion){
         
             Paso_1 ec1= new Paso_1(ecuacion, literal);
-            ec1.despejeX();      
-            String definicionX= ec1.getDefinicionX();
-            ec1.despejeY();
+            despejeX = ec1.despejeX(); //String listo
+            String definicionX= ec1.getDefinicionX(); 
+            despejeY = ec1.despejeY(); //String listo
             String definicionY= ec1.getDefinicionY();
             
             
             Paso_2 ec2 = new Paso_2 (ecuacion, literal);
-            ec2.extencionX(definicionX);
-            ec2.extencionY(definicionY);
+            extencionX = ec2.extencionX(definicionX); //string listo
+            extencionY = ec2.extencionY(definicionY); //String listo
             
             
             Paso_3 ec3 = new Paso_3(ecuacion, literal);
-            ec3.simetrias();
+            simetrias = ec3.simetrias();//String[] listo
             pendiente = ec3.getPendiente();
             
             
             Paso_4 ec4 = new Paso_4 (ecuacion, literal, definicionX, definicionY);
-            ec4.interseccionX();
-            ec4.interseccionY();
+            interseccionX = ec4.interseccionX(); //String listo
+            interseccionY = ec4.interseccionY();//String listo
+            
             
             Paso_5 ec5 = new Paso_5(ecuacion, literal);
+            asintotaV =ec5.asintotaV();
+            asintotaH =ec5.asintotaH();
             ec5.asintotas();
             
         }   
