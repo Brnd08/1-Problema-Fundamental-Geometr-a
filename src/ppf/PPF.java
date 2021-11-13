@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -44,7 +45,7 @@ import javax.swing.text.JTextComponent;
  */
 public class PPF {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, FontFormatException {
         GUI gui = new GUI();
         gui.setVisible(true);
     }
@@ -56,9 +57,17 @@ class GUI extends JFrame {
     //variables de valores de posicion de mouse
     int xMouse, yMouse;
 
-    public GUI() throws IOException {
-        //declaramos imagenes que utilizaremos
+    public GUI() throws IOException, FontFormatException {
 
+        //declaramos las fuentes que utilizaremos
+        SF65Bold = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("SF-Bold.ttf")).deriveFont(Font.PLAIN, 65);
+        SF22Bold = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("SF-Bold.ttf")).deriveFont(Font.PLAIN, 22);
+        SF12Med = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("SF-Medium.ttf")).deriveFont(Font.PLAIN, 12);
+        SF26SemiBold = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("SF-Semibold.ttf")).deriveFont(Font.PLAIN, 26);
+        SF10Normal = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("SF-Regular.ttf")).deriveFont(Font.PLAIN, 10);
+        SF12Normal = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("SF-Regular.ttf")).deriveFont(Font.PLAIN, 12);
+
+        //declaramos imagenes que utilizaremos
         impliesLight = ImageIO.read(getClass().getResourceAsStream("impliesLight.png"));
         impliesDark = ImageIO.read(getClass().getResourceAsStream("impliesDark.png"));
         lineDark = ImageIO.read(getClass().getResourceAsStream("lineDark.png"));
@@ -313,7 +322,7 @@ class GUI extends JFrame {
 
         //estableces configuraciones del textField donde se ingresa la ecuacion
         equationTextField.setBackground(header);
-        equationTextField.setFont(new Font("SF UI Display", 1, 65));
+        equationTextField.setFont(SF65Bold);
         equationTextField.setForeground(letter);
 
         //establecemos placeholder
@@ -425,7 +434,7 @@ class GUI extends JFrame {
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         //configuramos labels del panel de despejes
-        despejesLabel.setFont(new Font("SF UI Display", 1, 22));
+        despejesLabel.setFont(SF22Bold);
         despejesLabel.setForeground(letter);
         despejesLabel.setText("Despejes");
 
@@ -434,22 +443,22 @@ class GUI extends JFrame {
         impliesDesp.setIcon(new ImageIcon(getClass().getResource("impliesNone.png")));
         impliesDesp2.setIcon(new ImageIcon(getClass().getResource("impliesNone.png")));
 
-        paso1Label.setFont(new Font("SF UI Display Med", 0, 12));
+        paso1Label.setFont(SF12Med);
         paso1Label.setForeground(secondLetter);
         paso1Label.setText("Paso 1");
 
-        despXLabel.setFont(new Font("SF UI Display SemBd", 0, 26));
+        despXLabel.setFont(SF26SemiBold);
         despXLabel.setForeground(letter);
         despXLabel.setText("x = 1 - y");
 
-        despYLabel.setFont(new Font("SF UI Display SemBd", 0, 26));
+        despYLabel.setFont(SF26SemiBold);
         despYLabel.setForeground(letter);
         despYLabel.setText("y = 1 - x");
         ///////////////////////////////////////////////////////////////////////////////////////////
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         //configuramos labels del panel de variacion
-        varLabel.setFont(new Font("SF UI Display", 1, 22));
+        varLabel.setFont(SF22Bold);
         varLabel.setForeground(letter);
         varLabel.setText("Intervalos");
 
@@ -457,22 +466,22 @@ class GUI extends JFrame {
         impliesVar.setIcon(new ImageIcon(getClass().getResource("impliesNone.png")));
         impliesVar2.setIcon(new ImageIcon(getClass().getResource("impliesNone.png")));
 
-        paso2Label.setFont(new Font("SF UI Display Med", 0, 12));
+        paso2Label.setFont(SF12Med);
         paso2Label.setForeground(secondLetter);
         paso2Label.setText("Paso 2");
 
-        varXLabel.setFont(new Font("SF UI Display SemBd", 0, 26));
+        varXLabel.setFont(SF26SemiBold);
         varXLabel.setForeground(letter);
         varXLabel.setText("x = {|R}");
 
-        varYLabel.setFont(new Font("SF UI Display SemBd", 0, 26));
+        varYLabel.setFont(SF26SemiBold);
         varYLabel.setForeground(letter);
         varYLabel.setText("y = {|R}");
         ///////////////////////////////////////////////////////////////////////////////////////////
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         //configuramos labels del panel de simetria
-        simLabel.setFont(new Font("SF UI Display", 1, 22));
+        simLabel.setFont(SF22Bold);
         simLabel.setForeground(letter);
         simLabel.setText("Simetria");
 
@@ -481,22 +490,22 @@ class GUI extends JFrame {
         impliesSim.setIcon(new ImageIcon(getClass().getResource("impliesNone.png")));
         impliesSim2.setIcon(new ImageIcon(getClass().getResource("impliesNone.png")));
 
-        paso3Label.setFont(new Font("SF UI Display Med", 0, 12));
+        paso3Label.setFont(SF12Med);
         paso3Label.setForeground(secondLetter);
         paso3Label.setText("Paso 3");
 
-        simXLabel.setFont(new Font("SF UI Display SemBd", 0, 26));
+        simXLabel.setFont(SF26SemiBold);
         simXLabel.setForeground(letter);
         simXLabel.setText("x = NO");
 
-        simYLabel.setFont(new Font("SF UI Display SemBd", 0, 26));
+        simYLabel.setFont(SF26SemiBold);
         simYLabel.setForeground(letter);
         simYLabel.setText("y = NO");
         ///////////////////////////////////////////////////////////////////////////////////////////
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         //configuramos labels del panel de interceptos
-        interLabel.setFont(new Font("SF UI Display", 1, 22));
+        interLabel.setFont(SF22Bold);
         interLabel.setForeground(letter);
         interLabel.setText("Interceptos");
 
@@ -504,22 +513,22 @@ class GUI extends JFrame {
         impliesInter.setIcon(new ImageIcon(getClass().getResource("impliesNone.png")));
         impliesInter2.setIcon(new ImageIcon(getClass().getResource("impliesNone.png")));
 
-        paso4Label.setFont(new Font("SF UI Display Med", 0, 12));
+        paso4Label.setFont(SF12Med);
         paso4Label.setForeground(secondLetter);
         paso4Label.setText("Paso 4");
 
-        interXLabel.setFont(new Font("SF UI Display SemBd", 0, 26));
+        interXLabel.setFont(SF26SemiBold);
         interXLabel.setForeground(letter);
         interXLabel.setText("x = (1,0)");
 
-        interYLabel.setFont(new Font("SF UI Display SemBd", 0, 26));
+        interYLabel.setFont(SF26SemiBold);
         interYLabel.setForeground(letter);
         interYLabel.setText("y = (0,1)");
         ///////////////////////////////////////////////////////////////////////////////////////////
 
         ///////////////////////////////////////////////////////////////////////////////////////////
         //configuramos labels del panel de asintotas
-        asintLabel.setFont(new Font("SF UI Display", 1, 22));
+        asintLabel.setFont(SF22Bold);
         asintLabel.setForeground(letter);
         asintLabel.setText("Asintotas");
 
@@ -527,15 +536,15 @@ class GUI extends JFrame {
         impliesAsint.setIcon(new ImageIcon(getClass().getResource("impliesNone.png")));
         impliesAsint2.setIcon(new ImageIcon(getClass().getResource("impliesNone.png")));
 
-        paso5Label.setFont(new Font("SF UI Display Med", 0, 12));
+        paso5Label.setFont(SF12Med);
         paso5Label.setForeground(secondLetter);
         paso5Label.setText("Paso 5");
 
-        asintXLabel.setFont(new Font("SF UI Display SemBd", 0, 26));
+        asintXLabel.setFont(SF26SemiBold);
         asintXLabel.setForeground(letter);
         asintXLabel.setText("x = NO");
 
-        asintYLabel.setFont(new Font("SF UI Display SemBd", 0, 26));
+        asintYLabel.setFont(SF26SemiBold);
         asintYLabel.setForeground(letter);
         asintYLabel.setText("y = NO");
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -1095,6 +1104,8 @@ class GUI extends JFrame {
 
     private BufferedImage impliesLight, impliesDark, lineDark, lineLight, lineNone, impliesNone, lightMode1, lightMode2, lightMode3, darkMode1, darkMode2, darkMode3, goButton1, goButton2, goButton3, darkButton1, darkButton2, darkButton3;
 
+    private Font SF65Bold, SF22Bold, SF12Med, SF26SemiBold, SF10Normal, SF12Normal;
+
     private boolean isInDarkMode = false;
 }
 
@@ -1175,10 +1186,6 @@ class Grafica extends JPanel implements MouseListener, MouseMotionListener, Mous
     final static BasicStroke grosor1 = new BasicStroke(1.5f); //thickness
 
     boolean darkMode = false;
-    //TIPOS DE FUENTE
-    Font ft10 = new Font("SF UI Display", Font.PLAIN, 10);
-    Font ft12 = new Font("SF UI Display", Font.PLAIN, 12);
-    Font ft7 = new Font("SF UI Display", Font.PLAIN, 10);//funte de los numeros
 
     int puntosInt;
     int Galto = 170, Gancho = 240;       //dimesiones de la zona de graficacion
@@ -1193,7 +1200,12 @@ class Grafica extends JPanel implements MouseListener, MouseMotionListener, Mous
     boolean dragging;
     double a = 0.0, b = 0.0, c = 0.0;
 
-    public Grafica() {
+    Font SF10Normal, SF12Normal;
+
+    public Grafica() throws FontFormatException, IOException {
+
+        SF10Normal = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("SF-Regular.ttf")).deriveFont(Font.PLAIN, 10);
+        SF12Normal = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("SF-Regular.ttf")).deriveFont(Font.PLAIN, 12);
         escalaX = 30;
         escalaY = 30;
         x0 = Gancho / 2;
@@ -1327,7 +1339,7 @@ class Grafica extends JPanel implements MouseListener, MouseMotionListener, Mous
         g.setColor(bg);
         g.fillRoundRect(0, 0, width - 1, height - 1, arcs.width, arcs.height); //paint background
 
-        g.setFont(ft10);
+        g.setFont(SF10Normal);
 
         g.setColor(l);
         //PINTAMOS EL EJE X Y EL EJE Y
@@ -1348,7 +1360,7 @@ class Grafica extends JPanel implements MouseListener, MouseMotionListener, Mous
         cymax = (int) Math.round(1.0 * yg / escalaY);
 
         g.setPaint(sL); //COLOR CUADRICULA
-        g.setFont(ft7);
+        g.setFont(SF10Normal);
 
         //PINTAMOS TODOS LOS EJES PARA FORMAR LA CUADRICULA
         if (escalaX > 5) {
@@ -1477,7 +1489,6 @@ class TextPrompt extends JLabel
         }
 
         setVisible(true);
-
     }
 
 //  Implement FocusListener
