@@ -117,7 +117,6 @@ class GUI extends JFrame {
         asintPanel = new RoundedPanel(24, panelBG);
 
         graphPanel = new Grafica();
-        graphPanel.setValues(1.0, 0.0, -1.0);
 
         //objetos el panel de despesjes
         despejesLabel = new JLabel();
@@ -331,23 +330,60 @@ class GUI extends JFrame {
         placeholder = new TextPrompt("ax + by + c = 0", equationTextField);
         placeholder.setForeground(secondLetter);
 
+        //que no se pueda pegar texto en el JTextField
         equationTextField.setTransferHandler(null);
+
         //validacion de datos del input
         equationTextField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                String caracteres = "1234567890+-=xy";
+                String numeros = "1234567890";
+                String caracteres = "+-=xy";
+
+                String cadena = numeros + caracteres;
+
                 char c = e.getKeyChar();
                 String text = equationTextField.getText();
 
                 //no poner caracteres no permitidos
-                if (caracteres.indexOf(c) == -1) {
+                if (cadena.indexOf(c) == -1) {
                     e.consume();
-                    //no repetir 'x', 'y' ni '='
-                } else if ((text.indexOf(c) != -1) && (c == 'x' || c == 'y' || c == '=')) {
+                } //no repetir 'x', 'y' ni '='
+                else if ((text.indexOf(c) != -1) && (c == 'x' || c == 'y' || c == '=')) {
                     e.consume();
-                    //no repetir '+' o '-' seguido de un '+' o '-'
-                } else if (/**/(((text.length() - 1) == text.lastIndexOf('+')) || ((text.length() - 1) == text.lastIndexOf('-')))/**/ && (text.indexOf('+') != -1 || text.indexOf('-') != -1) && (c == '+' || c == '-')) {
+                } //no repetir '+' o '-' seguido de un '+' o '-'
+                else if (/**/(((text.length() - 1) == text.lastIndexOf('+')) || ((text.length() - 1) == text.lastIndexOf('-')))/**/ && (text.indexOf('+') != -1 || text.indexOf('-') != -1) && (c == '+' || c == '-')) {
+                    e.consume();
+                }// no poner 'y' antes de que haya un 'x' 
+                else if (c == 'y' && text.indexOf('x') == -1) {
+                    e.consume();
+                }// no poner 'y' antes de que haya un 'x' 
+                else if (c == '=' && text.indexOf('y') == -1) {
+                    e.consume();
+                }//no poner numeros despues de una letra
+                else if (numeros.indexOf(c) != -1 && (((text.length() - 1) == text.lastIndexOf('x')) || ((text.length() - 1) == text.lastIndexOf('y'))) && (text.indexOf('x') != -1 || text.indexOf('y') != -1)) {
+                    e.consume();
+                }//poner solo cero despues del igual
+                else if (c != '0' && ((text.length() - 1) == text.lastIndexOf('=')) && text.indexOf('=') != -1) {
+                    e.consume();
+                }//que se pueda poner solo un cero despues del '='
+                else if ((text.length() - 2) == text.lastIndexOf('=') && text.indexOf('=') != -1) {
+                    e.consume();
+                }//que no se pueda poner igual despues de un 'x' o 'y' o '+' o '-'
+                else if (((text.length() - 1) == text.lastIndexOf('+') || (text.length() - 1) == text.lastIndexOf('-') || (text.length() - 1) == text.lastIndexOf('y') || (text.length() - 1) == text.lastIndexOf('x')) && c == '=') {
+                    e.consume();
+                }//que no se pueda poner 'y' despues de una 'x'
+                else if ((text.length() - 1) == text.lastIndexOf('x') && c == 'y') {
+                    e.consume();
+                }
+            }
+        });
+
+        equationTextField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                //que no se pueda pulsar la flecha de izquierda o derecha
+                if ((e.getKeyCode() == 37) || (e.getKeyCode() == 39)) {
                     e.consume();
                 }
             }
@@ -907,6 +943,9 @@ class GUI extends JFrame {
                                 .addGap(22, 22, 22))
         );
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////7
+
+        //establecemos los valores de a,b y c para graficar
+        graphPanel.setValues(1.25, 1.75, -1.0);
 
         //añadimos el panel de ecuacion
         equationPanel.setBounds(0, 0, 827, 161);
