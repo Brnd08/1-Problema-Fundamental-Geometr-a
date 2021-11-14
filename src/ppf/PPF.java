@@ -440,8 +440,56 @@ class GUI extends JFrame {
             @Override
             public void mouseClicked(MouseEvent evt) {
                 if (equationTextField.getText().contains("=0")) {
+                    //parseamos la ecuacion
                     ecuation.parseEcuation(equationTextField.getText());
+
+                    //la graficamos asignando los valores de a,b y c
                     graphPanel.setValues(ecuation.getA(), ecuation.getB(), ecuation.getC());
+
+                    //resolvemos los pasos del ppf
+                    EntradaEcuacion ec = new EntradaEcuacion();
+                    ec.pedirEcuacion(ecuation.getA(), ecuation.getB(), ecuation.getC());
+                    ec.simplificarEcuacion();
+
+                    String simetrias[];
+                    ec.imprimirEcuacion();
+                    int[] ecuacion = ec.getEcuacion();
+                    String[] literal = ec.getLiteral();
+                    boolean esEcuacion = ec.esEcuacion();
+
+                    //////////////////////////////////////////////////////////////////////
+                    if (esEcuacion) {
+
+                        Paso_1 ec1 = new Paso_1(ecuacion, literal);
+                        despXLabel.setText(ec1.despejeX()); //String listo
+                        String definicionX = ec1.getDefinicionX();
+                        despYLabel.setText(ec1.despejeY()); //String listo
+                        String definicionY = ec1.getDefinicionY();
+
+                        Paso_2 ec2 = new Paso_2(ecuacion, literal);
+                        varXLabel.setText(ec2.extencionX(definicionX)); //string listo
+                        varYLabel.setText(ec2.extencionY(definicionY)); //String listo
+
+                        Paso_3 ec3 = new Paso_3(ecuacion);
+                        simetrias = ec3.simetrias();
+                        simXLabel.setText(simetrias[0]);
+                        simYLabel.setText(simetrias[1]);
+
+                        //pendiente = ec3.getPendiente();
+                        Paso_4 ec4 = new Paso_4(ecuacion, definicionX, definicionY);
+                        interXLabel.setText(ec4.interseccionX());
+                        interYLabel.setText(ec4.interseccionY());
+
+                        Paso_5 ec5 = new Paso_5(ecuacion, literal);
+                        asintXLabel.setText(ec5.asintotaV());
+                        asintYLabel.setText(ec5.asintotaH());
+                        ec5.asintotas();
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se pueden realizar los pasos del problema geometrico");
+                    }
+
+                    //////////////////////////////////////////////////////////////////////
                 } else {
                     JOptionPane.showMessageDialog(null, "Ingresa una ecuacion valida!");
                 }
