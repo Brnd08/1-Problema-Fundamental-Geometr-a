@@ -346,11 +346,8 @@ class GUI extends JFrame {
                     //no repetir 'x', 'y' ni '='
                 } else if ((text.indexOf(c) != -1) && (c == 'x' || c == 'y' || c == '=')) {
                     e.consume();
-                    //no repetir '+' seguido
-                } else if ((text.indexOf('+') != -1) && (c == '+') && ((text.length() - 1) == text.lastIndexOf('+'))) {
-                    e.consume();
-                    //no repetir '-' seguido
-                } else if ((text.indexOf('-') != -1) && (c == '-') && ((text.length() - 1) == text.lastIndexOf('-'))) {
+                    //no repetir '+' o '-' seguido de un '+' o '-'
+                } else if (/**/(((text.length() - 1) == text.lastIndexOf('+')) || ((text.length() - 1) == text.lastIndexOf('-')))/**/ && (text.indexOf('+') != -1 || text.indexOf('-') != -1) && (c == '+' || c == '-')) {
                     e.consume();
                 }
             }
