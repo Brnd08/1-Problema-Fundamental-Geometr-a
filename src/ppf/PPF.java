@@ -60,6 +60,8 @@ class GUI extends JFrame {
     int xMouse, yMouse;
 
     public GUI() throws IOException, FontFormatException {
+        //declaramos variable de ecuacion
+        Ecuation ecuation = new Ecuation();
 
         //declaramos las fuentes que utilizaremos
         SF65Bold = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("SF-Bold.ttf")).deriveFont(Font.PLAIN, 65);
@@ -432,6 +434,16 @@ class GUI extends JFrame {
                 } else {
                     goLabel.setImage(darkButton2);
                 }
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                ecuation.parseEcuation(equationTextField.getText());
+                System.out.println(ecuation.getA());
+                System.out.println(ecuation.getB());
+                System.out.println(ecuation.getC());
+
+                graphPanel.setValues(ecuation.getA(), ecuation.getB(), ecuation.getC());
             }
         });
 
@@ -1397,7 +1409,7 @@ class Grafica extends JPanel implements MouseListener, MouseMotionListener, Mous
 
         //convertimos el objeto ap en un objeto Graphics2D para usar los metodos Java2D
         Graphics2D g = (Graphics2D) ap;
-        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         //dibuja el panel con bordes redondeados
         g.setColor(bg);
@@ -1577,5 +1589,30 @@ class TextPrompt extends JLabel
 
     @Override
     public void changedUpdate(DocumentEvent e) {
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+class Ecuation {
+
+    double a = 0.0, b = 0.0, c = 0.0;
+
+    public void parseEcuation(String ecuation) {
+        String ecNo0 = ecuation.replace("=0", "");
+        a = Double.parseDouble(ecNo0.substring(0, ecNo0.indexOf('x')));
+        b = Double.parseDouble(ecNo0.substring(ecNo0.indexOf('x') + 1, ecNo0.indexOf('y')));
+        c = Double.parseDouble(ecNo0.substring(ecNo0.indexOf('y') + 1, ecNo0.length()));
+    }
+
+    public double getA() {
+        return this.a;
+    }
+
+    public double getB() {
+        return this.b;
+    }
+
+    public double getC() {
+        return this.c;
     }
 }
