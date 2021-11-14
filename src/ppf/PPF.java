@@ -30,6 +30,7 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
@@ -438,12 +439,12 @@ class GUI extends JFrame {
 
             @Override
             public void mouseClicked(MouseEvent evt) {
-                ecuation.parseEcuation(equationTextField.getText());
-                System.out.println(ecuation.getA());
-                System.out.println(ecuation.getB());
-                System.out.println(ecuation.getC());
-
-                graphPanel.setValues(ecuation.getA(), ecuation.getB(), ecuation.getC());
+                if (equationTextField.getText().contains("=0")) {
+                    ecuation.parseEcuation(equationTextField.getText());
+                    graphPanel.setValues(ecuation.getA(), ecuation.getB(), ecuation.getC());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ingresa una ecuacion valida!");
+                }
             }
         });
 
