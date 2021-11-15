@@ -23,69 +23,64 @@ public class Paso_4 {
         // if y=0 we have
         //aX + bY + c = 0 --> aX + b(0) + c= 0 --> aX = -c --> X=-c/a     
         
-        System.out.print("\n " + "Interseccion en Eje X    ---->" + "\t ");
+        System.out.print("\n Interseccion en Eje X    ---->\t");
         
         int mcd = Mcd_Recursivo.mcd(ecuacion[2], ecuacion[0]);
         int c = ecuacion[2] / mcd;
         int a = ecuacion[0] / mcd;
 
-        String interseccionS = "si ves esto algo asio mal en el paso 4 con el switch";
-        String interseccionX;
+        String interseccionS = "Default X";
 
         switch (tipoX) {
-
-            case "indefinido":
+            
+            case "pFijo" :
+                // fall through
+                
+            case "normal" :
+               String interseccionX;
+               interseccionX = ( a != 0 & a != 1) ?(-c + "/" + a) :(-c != 1) ?Integer.toString(-c) :Integer.toString(c);
+               interseccionXFloat = (float) -c / a;
+               interseccionS = String.format("P (%s , %d)  \u2248  P (%.2f, %d)\n", interseccionX, 0, interseccionXFloat, 0);           
+               break;
+               
+            case "indefinido" :
                 interseccionS = "No tiene\n";
                 break;
-
-            case "pFijo":
-                interseccionX = (a != 0 & a != 1) ? (-c + "/" + a) : (-c != 1) ? Integer.toString(-c) : Integer.toString(c);
-                interseccionXFloat = (float) -c / a;
-                
-                interseccionS = String.format ("P (%s, %s)  \u2248  P (%.2f ,%d)\n", interseccionX, 0, interseccionXFloat, 0);
-                break;
-
-            case "normal":
-                interseccionX = (a != 0 & a != 1) ? (-c + "/" + a) : (-c != 1) ? Integer.toString(-c) : Integer.toString(c);
-                interseccionXFloat = (float) -c / a;
-               interseccionS = String.format("P (%s , %d)  \u2248  P (%.2f, %d)\n", interseccionX, 0, interseccionXFloat, 0);           //\u2248 simbolo aprox
-                break;
         }
-                System.out.print(interseccionS + "<- el nuevo");
-                return interseccionS;
+        
+        System.out.print( interseccionS );
+        return interseccionS;
 
     }
 
     public String interseccionY() {
-        System.out.print("\n " + "Interseccion en Eje Y    ---->" + "\t ");
+        System.out.print("\n Interseccion en Eje Y    ---->\t");
         // if X=0 we have
         //aX + bY + c = 0 --> a(0) + bY + c= 0 --> bY = -c --> Y=-c/b
         int mcd = Mcd_Recursivo.mcd(ecuacion[2], ecuacion[1]);
         int c = ecuacion[2] / mcd;
         int b = ecuacion[1] / mcd;
 
-        String interseccionY;
-         String interseccionS= "si ves esto algo saliio mal en paso_4";        
+        String interseccionS= "Default Y";
         
         switch (tipoY) {
             
-            case "indefinido":
-                interseccionS="No tiene\n";
-                break;
-                
             case "pFijo":
-                interseccionY = (b != 0 & b != 1) ? (-c + "/" + b) : (-c != 1) ? Integer.toString(-c) : Integer.toString(c); //-c+"/" +b;           
-                interseccionYFloat = (float) -c / b;
-                interseccionS= String.format ("P (%s, %s)  \u2248  P ( %d ,%.2f )\n", 0, interseccionY, 0, interseccionYFloat);
-                break;
+                // fal through
                 
             case "normal":
-                interseccionY = (b != 0 & b != 1) ? (-c + "/" + b) : (-c != 1) ? Integer.toString(-c) : Integer.toString(c); //-c+"/" +b;           
+                String interseccionY;
+                interseccionY = ( b != 0 & b != 1 ) ?(-c + "/" + b) :(-c != 1) ?Integer.toString(-c) :Integer.toString(c);      
                 interseccionYFloat = (float) -c / b;
                 interseccionS= String.format ("P ( %d ,%s )  \u2248  P ( %d ,%.2f )\n", 0, interseccionY, 0, interseccionYFloat);
                 break;
+                
+            case "indefinido":
+                interseccionS="No tiene\n";
+                break;
         }
-        System.out.print(interseccionS + "<- el nuevo");
+        
+        System.out.print( interseccionS );
         return interseccionS;
     }
 

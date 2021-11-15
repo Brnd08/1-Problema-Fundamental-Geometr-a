@@ -7,7 +7,7 @@ import static java.lang.Double.isInfinite;
 public class Paso_3 {
         
     private int ecuacion[] = new int[3];
-    private  float pendiente;
+    private float pendiente;
     private String variables[] = new String[3];
     
 
@@ -15,59 +15,55 @@ public class Paso_3 {
         this.ecuacion = ecuacion;
         this.variables = variables;
         this.pendiente = this.calcularPendiente(ecuacion);
-        System.out.println();
         
-        System.out.println("\n 3)  SIMETRIAS:");
+        System.out.println("\n\n 3)  SIMETRIAS:");
     }
         
      private float calcularPendiente(int [] ecuacion2){
-        //pendiente = - a/b
+        /*
+         * pendiente = - a/b
+         */
+        
         int b = ecuacion2[1];
         int a = ecuacion2[0];
-        String sPendiente = (-a)+ "/" + (b) + " = ";
+        
+        String sPendiente = (-a)+ "/" + b + " = ";
         float pendiente2 ;
+        
         try{
             pendiente2 = (float) -a/b;
             System.out.println(" Pendiente:\t" + sPendiente +  pendiente2);
-        }            
+        }
         catch(Exception e){
             pendiente2 = (float) -a/b;
             System.out.println(" Pendiente:\t" + sPendiente +  pendiente2);
         }
          return pendiente2;
     }
-    public String[] simetrias(){
-        
-        System.out.print("\n Eje X \t");
+     
+    public String[] simetrias() {
+        String simetriasS[] = {"default X", "default Y", "default O"};
 
-        String simetriasS[] = {"si ves esto alg sucedio con simetria en X", "si ves esto alg sucedio con simetria en Y", "si ves esto alg sucedio con simetria en O"};
+        if ( this.esSimetricaX() )
+                simetriasS[0] = "\tSimetria respecto a eje X";
+            else 
+                simetriasS[0] = "\tNo existe simetria en el eje X";
 
-        if (this.esSimetricaX())
-                simetriasS[0] =String.format ("\tSimetria respecto a eje X");
-        else 
-                simetriasS[0] =String.format ("\tNo existe simetria en el eje X");
-
-                System.out.print( simetriasS[0] );
-
-        System.out.print("\n Eje Y \t");
-
-        if (this.esSimetricaY())
+        if ( this.esSimetricaY() )
                 simetriasS[1] =String.format("\tSimetria respecto a eje Y");
-        else 
+            else 
                 simetriasS[1] =String.format("\tNo existe simetria en el eje Y");
 
-                System.out.print( simetriasS[1] );
-
-        System.out.print("\n Origen Y \t");
-
-        if (this.esSimetricaOrigen())
+        if ( this.esSimetricaOrigen() )
                 simetriasS[2] =String.format("Simetria respecto al Origen");
-        else 
+            else 
                 simetriasS[2] =String.format("No existe simetria respecto al Origen");   
 
-                System.out.print( simetriasS[2] );
+        System.out.print( "\n Eje X \t" + simetriasS[0] );
+        System.out.print( "\n Eje Y \t" + simetriasS[1] );
+        System.out.print( "\n Origen Y \t" + simetriasS[2] );
                 
-        return simetriasS;
+        return simetriasS.clone();
     }
 
     private  boolean  esSimetricaX (){
@@ -77,7 +73,7 @@ public class Paso_3 {
 
     private  boolean esSimetricaY (){
 
-        return (pendiente == 0.0f); 
+        return  (pendiente == 0.0f ); 
     }
 
     private  boolean esSimetricaOrigen (){
@@ -86,6 +82,7 @@ public class Paso_3 {
     }
 
     public float getPendiente() {
+        
         return pendiente;
     }
         

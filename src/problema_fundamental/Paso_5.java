@@ -11,8 +11,7 @@ public class Paso_5 {
         this.ecuacion = ecuacion;
         this.variables = variables;
         
-        System.out.println();        
-        System.out.println("\n 5)  ASINTOTAS:");
+        System.out.println("\n\n 5)  ASINTOTAS:");
     }
     
     public void  asintotas(){
@@ -21,10 +20,10 @@ public class Paso_5 {
         
     }
     public  String asintotaH(){
-        return String.format(" %s", "No tiene asintotas Horizontales");
+        return "No tiene asintotas Horizontales";
     }
     
     public  String asintotaV(){
-        return String.format(" %s", "No tiene asintotas Verticales");
+        return "No tiene asintotas Verticales";
     }
 }
