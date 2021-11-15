@@ -13,17 +13,17 @@ public class Paso_5 {
         System.out.println("\n 5)  ASINTOTAS:");
     }
 
-    public void asintotas() {
+    public void asintotas() { 
 
         System.out.printf("\n Asintotas Horizontales\t %s \n Asintotas Verticales\t %s\n", this.asintotaH(), this.asintotaV());
 
     }
 
     public String asintotaH() {
-        return String.format(" %s", "No tiene asintotas Horizontales");
+        return "x = NO";
     }
 
     public String asintotaV() {
-        return String.format(" %s", "No tiene asintotas Verticales");
+        return "y = NO";
     }
 }

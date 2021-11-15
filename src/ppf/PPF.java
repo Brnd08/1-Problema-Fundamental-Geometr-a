@@ -69,6 +69,8 @@ class GUI extends JFrame {
         SF22Bold = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("SF-Bold.ttf")).deriveFont(Font.PLAIN, 22);
         SF12Med = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("SF-Medium.ttf")).deriveFont(Font.PLAIN, 12);
         SF26SemiBold = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("SF-Semibold.ttf")).deriveFont(Font.PLAIN, 26);
+        SF23SemiBold = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("SF-Semibold.ttf")).deriveFont(Font.PLAIN, 23);
+        SF20SemiBold = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("SF-Semibold.ttf")).deriveFont(Font.PLAIN, 20);
         SF10Normal = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("SF-Regular.ttf")).deriveFont(Font.PLAIN, 10);
         SF12Normal = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("SF-Regular.ttf")).deriveFont(Font.PLAIN, 12);
 
@@ -378,6 +380,12 @@ class GUI extends JFrame {
                 }//que no se pueda poner 'y' despues de una 'x'
                 else if ((text.length() - 1) == text.lastIndexOf('x') && c == 'y') {
                     e.consume();
+                }//que no pueda poner 'y' sin un numero antes
+                else if ((c == 'x' || c == 'y') && text.length() != 0 && numeros.indexOf(text.charAt(text.length() - 1)) == -1) {
+                    e.consume();
+                }//que no se pueda poner 'x' sin un numero antes
+                else if (text.length() == 0 && c == 'x') {
+                    e.consume();
                 }
             }
         });
@@ -443,9 +451,6 @@ class GUI extends JFrame {
                     //parseamos la ecuacion
                     ecuation.parseEcuation(equationTextField.getText());
 
-                    //la graficamos asignando los valores de a,b y c
-                    graphPanel.setValues(ecuation.getA(), ecuation.getB(), ecuation.getC());
-
                     //resolvemos los pasos del ppf
                     EntradaEcuacion ec = new EntradaEcuacion();
                     ec.pedirEcuacion(ecuation.getA(), ecuation.getB(), ecuation.getC());
@@ -460,15 +465,18 @@ class GUI extends JFrame {
                     //////////////////////////////////////////////////////////////////////
                     if (esEcuacion) {
 
+                        //la graficamos asignando los valores de a,b y c
+                        graphPanel.setValues(ecuation.getA(), ecuation.getB(), ecuation.getC());
+
                         Paso_1 ec1 = new Paso_1(ecuacion, literal);
-                        despXLabel.setText(ec1.despejeX()); //String listo
+                        despXLabel.setText(ec1.despejeX());
                         String definicionX = ec1.getDefinicionX();
-                        despYLabel.setText(ec1.despejeY()); //String listo
+                        despYLabel.setText(ec1.despejeY());
                         String definicionY = ec1.getDefinicionY();
 
                         Paso_2 ec2 = new Paso_2(ecuacion, literal);
-                        varXLabel.setText(ec2.extencionX(definicionX)); //string listo
-                        varYLabel.setText(ec2.extencionY(definicionY)); //String listo
+                        varXLabel.setText(ec2.extencionX(definicionX));
+                        varYLabel.setText(ec2.extencionY(definicionY));
 
                         Paso_3 ec3 = new Paso_3(ecuacion);
                         simetrias = ec3.simetrias();
@@ -481,12 +489,12 @@ class GUI extends JFrame {
                         interYLabel.setText(ec4.interseccionY());
 
                         Paso_5 ec5 = new Paso_5(ecuacion, literal);
-                        asintXLabel.setText(ec5.asintotaV());
-                        asintYLabel.setText(ec5.asintotaH());
+                        asintXLabel.setText(ec5.asintotaH());
+                        asintYLabel.setText(ec5.asintotaV());
                         ec5.asintotas();
 
                     } else {
-                        JOptionPane.showMessageDialog(null, "No se pueden realizar los pasos del problema geometrico");
+                        JOptionPane.showMessageDialog(null, "Ingresa una ecuacion valida!");
                     }
 
                     //////////////////////////////////////////////////////////////////////
@@ -568,11 +576,11 @@ class GUI extends JFrame {
         paso1Label.setForeground(secondLetter);
         paso1Label.setText("Paso 1");
 
-        despXLabel.setFont(SF26SemiBold);
+        despXLabel.setFont(SF23SemiBold);
         despXLabel.setForeground(letter);
         despXLabel.setText("x = 1 - y");
 
-        despYLabel.setFont(SF26SemiBold);
+        despYLabel.setFont(SF23SemiBold);
         despYLabel.setForeground(letter);
         despYLabel.setText("y = 1 - x");
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -591,11 +599,11 @@ class GUI extends JFrame {
         paso2Label.setForeground(secondLetter);
         paso2Label.setText("Paso 2");
 
-        varXLabel.setFont(SF26SemiBold);
+        varXLabel.setFont(SF20SemiBold);
         varXLabel.setForeground(letter);
         varXLabel.setText("x = {|R}");
 
-        varYLabel.setFont(SF26SemiBold);
+        varYLabel.setFont(SF20SemiBold);
         varYLabel.setForeground(letter);
         varYLabel.setText("y = {|R}");
         ///////////////////////////////////////////////////////////////////////////////////////////
@@ -734,7 +742,7 @@ class GUI extends JFrame {
         simetriaPanelLayout.setHorizontalGroup(
                 simetriaPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(simetriaPanelLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
+                                .addGap(15, 15, 15)
                                 .addGroup(simetriaPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(simetriaPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                                 .addGroup(simetriaPanelLayout.createSequentialGroup()
@@ -1228,7 +1236,7 @@ class GUI extends JFrame {
 
     private BufferedImage impliesLight, impliesDark, lineDark, lineLight, lineNone, impliesNone, lightMode1, lightMode2, lightMode3, darkMode1, darkMode2, darkMode3, goButton1, goButton2, goButton3, darkButton1, darkButton2, darkButton3;
 
-    private Font SF65Bold, SF22Bold, SF12Med, SF26SemiBold, SF10Normal, SF12Normal;
+    private Font SF65Bold, SF22Bold, SF12Med, SF26SemiBold, SF20SemiBold, SF23SemiBold, SF10Normal, SF12Normal;
 
     private boolean isInDarkMode = false;
 }
@@ -1550,8 +1558,8 @@ class Grafica extends JPanel implements MouseListener, MouseMotionListener, Mous
                 valxi = xmin + i * 1.0 / escalaX;
                 valxi1 = xmin + (i + 1) * 1.0 / escalaX;
 
-                valyi = (-1 * this.c);
-                valyi1 = (-1 * this.c);
+                valyi = (-1 * (this.c / this.b));
+                valyi1 = (-1 * (this.c / this.b));
 
                 xi = (int) Math.round(escalaX * (valxi));
                 yi = (int) Math.round(escalaY * valyi);
@@ -1566,8 +1574,8 @@ class Grafica extends JPanel implements MouseListener, MouseMotionListener, Mous
                 valyi = xmin + i * 1.0 / escalaY;
                 valyi1 = xmin + (i + 1) * 1.0 / escalaY;
 
-                valxi = (-1 * this.c);
-                valxi1 = (-1 * this.c);
+                valxi = (-1.0 * (this.c / this.a));
+                valxi1 = (-1.0 * (this.c / this.a));
 
                 xi = (int) Math.round(escalaX * (valxi));
                 yi = (int) Math.round(escalaY * valyi);

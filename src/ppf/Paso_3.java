@@ -38,9 +38,9 @@ public class Paso_3 {
         String simetriasS[] = {"si ves esto alg sucedio con simetria en X", "si ves esto alg sucedio con simetria en Y", "si ves esto alg sucedio con simetria en O"};
 
         if (this.esSimetricaX()) {
-            simetriasS[0] = String.format("\tSimetria respecto a eje X");
+            simetriasS[0] = String.format("\tx = SI");
         } else {
-            simetriasS[0] = String.format("\tNo existe simetria en el eje X");
+            simetriasS[0] = String.format("\tx = NO");
         }
 
         System.out.print(simetriasS[0]);
@@ -48,9 +48,9 @@ public class Paso_3 {
         System.out.print("\n Eje Y \t");
 
         if (this.esSimetricaY()) {
-            simetriasS[1] = String.format("\tSimetria respecto a eje Y");
+            simetriasS[1] = String.format("\ty = SI");
         } else {
-            simetriasS[1] = String.format("\tNo existe simetria en el eje Y");
+            simetriasS[1] = String.format("\ty = NO");
         }
 
         System.out.print(simetriasS[1]);
